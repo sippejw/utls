@@ -195,7 +195,7 @@ func (c *Conn) decryptTicket(encrypted []byte) (plaintext []byte, usedOldKey boo
 func DecryptTicketWith(encrypted []byte, tks TicketKeys) (plaintext []byte, usedOldKey bool) {
 	// create fake conn
 	c := &Conn{
-		ticketKeys: tks.ToPrivate(),
+		ticketKeys: tks.toPrivate(),
 	}
 
 	return c.decryptTicket(encrypted)

@@ -692,7 +692,7 @@ func BoringPaddingStyle(unpaddedLen int) (int, bool) {
 
 /* TLS 1.3 */
 type KeyShareExtension struct {
-	KeyShares []KeyShare
+	KeyShares []UKeyShare
 }
 
 func (e *KeyShareExtension) Len() int {
@@ -771,7 +771,7 @@ func (e *PSKKeyExchangeModesExtension) Read(b []byte) (int, error) {
 }
 
 func (e *PSKKeyExchangeModesExtension) writeToUConn(uc *UConn) error {
-	uc.HandshakeState.Hello.PskModes = e.Modes
+	uc.HandshakeState.Hello.PSKModes = e.Modes
 	return nil
 }
 

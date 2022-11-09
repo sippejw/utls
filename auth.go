@@ -35,7 +35,7 @@ func verifyHandshakeSignature(sigType uint8, pubkey crypto.PublicKey, hashFunc c
 			return fmt.Errorf("expected an Ed25519 public key, got %T", pubkey)
 		}
 		if !ed25519.Verify(pubKey, signed, sig) {
-			return errors.New("Ed25519 verification failure")
+			return errors.New("ed25519 verification failure")
 		}
 	case signaturePKCS1v15:
 		pubKey, ok := pubkey.(*rsa.PublicKey)

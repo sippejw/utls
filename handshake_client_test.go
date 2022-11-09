@@ -2042,11 +2042,11 @@ type brokenConn struct {
 }
 
 // brokenConnErr is the error that brokenConn returns once exhausted.
-var brokenConnErr = errors.New("too many writes to brokenConn")
+var errBrokenConn = errors.New("too many writes to brokenConn")
 
 func (b *brokenConn) Write(data []byte) (int, error) {
 	if b.numWrites >= b.breakAfter {
-		return 0, brokenConnErr
+		return 0, errBrokenConn
 	}
 
 	b.numWrites++
@@ -2067,7 +2067,7 @@ func TestFailedWrite(t *testing.T) {
 
 		brokenC := &brokenConn{Conn: c, breakAfter: breakAfter}
 		err := Client(brokenC, testConfig).Handshake()
-		if err != brokenConnErr {
+		if err != errBrokenConn {
 			t.Errorf("#%d: expected error from brokenConn but got %q", breakAfter, err)
 		}
 		brokenC.Close()

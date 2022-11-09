@@ -123,7 +123,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SupportedPointsExtension{SupportedPoints: []byte{
 					pointFormatUncompressed,
 				}},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -198,7 +198,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA1,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -270,7 +270,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA512,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -342,7 +342,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA512,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -414,7 +414,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA512,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -487,7 +487,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA512,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -600,7 +600,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SessionTicketExtension{},
 				&ALPNExtension{AlpnProtocols: []string{"h2", "http/1.1"}},
 				&StatusRequestExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: X25519},
 					{Group: CurveP256},
 				}},
@@ -679,7 +679,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 						ECDSAWithSHA1,
 					},
 				},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: X25519},
 					{Group: CurveP256}, //key_share
 				}},
@@ -760,7 +760,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 						ECDSAWithSHA1,
 					},
 				},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: X25519},
 					{Group: CurveP256}, //key_share
 				}},
@@ -851,7 +851,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					},
 				},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: X25519,
 						},
@@ -1071,7 +1071,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SupportedPointsExtension{SupportedPoints: []byte{
 					0x00, // pointFormatUncompressed
 				}},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: X25519},
 				}},
 				&PSKKeyExchangeModesExtension{[]uint8{
@@ -1159,7 +1159,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					PKCS1WithSHA1,
 				}},
 				&SCTExtension{},
-				&KeyShareExtension{[]KeyShare{
+				&KeyShareExtension{[]UKeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
 					{Group: X25519},
 				}},
@@ -1288,7 +1288,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				},
 				&SCTExtension{},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: GREASE_PLACEHOLDER,
 							Data: []byte{
@@ -1393,7 +1393,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				},
 				&SCTExtension{},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: GREASE_PLACEHOLDER,
 							Data: []byte{
@@ -1508,7 +1508,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				},
 				&SCTExtension{},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: GREASE_PLACEHOLDER,
 							Data: []byte{
@@ -1689,7 +1689,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 					OldExtensionID: false,
 				},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: GREASE_PLACEHOLDER,
 							Data: []byte{
@@ -1793,7 +1793,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				},
 				&SCTExtension{},
 				&KeyShareExtension{
-					KeyShares: []KeyShare{
+					KeyShares: []UKeyShare{
 						{
 							Group: GREASE_PLACEHOLDER,
 							Data: []byte{
@@ -1878,8 +1878,8 @@ func (uconn *UConn) ApplyPreset(p *ClientHelloSpec) error {
 	if err != nil {
 		return err
 	}
-	uconn.HandshakeState.Hello = privateHello.getPublicPtr()
-	uconn.HandshakeState.State13.EcdheParams = ecdheParams
+	uconn.HandshakeState.Hello = privateHello.toPublic()
+	uconn.HandshakeState.State13.ECDHEParams = ecdheParams
 	hello := uconn.HandshakeState.Hello
 	session := uconn.HandshakeState.Session
 
@@ -1985,7 +1985,7 @@ func (uconn *UConn) ApplyPreset(p *ClientHelloSpec) error {
 				ext.KeyShares[i].Data = ecdheParams.PublicKey()
 				if !preferredCurveIsSet {
 					// only do this once for the first non-grease curve
-					uconn.HandshakeState.State13.EcdheParams = ecdheParams
+					uconn.HandshakeState.State13.ECDHEParams = ecdheParams
 					preferredCurveIsSet = true
 				}
 			}
@@ -2155,7 +2155,7 @@ func (uconn *UConn) generateRandomizedSpec() (ClientHelloSpec, error) {
 		p.Extensions = append(p.Extensions, &ems)
 	}
 	if p.TLSVersMax == VersionTLS13 {
-		ks := KeyShareExtension{[]KeyShare{
+		ks := KeyShareExtension{[]UKeyShare{
 			{Group: X25519}, // the key for the group will be generated later
 		}}
 		if r.FlipWeightedCoin(0.25) {

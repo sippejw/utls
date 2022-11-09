@@ -620,7 +620,7 @@ func (c *Conn) readRecordOrCCS(expectChangeCipherSpec bool) error {
 		if err == io.ErrUnexpectedEOF && c.rawInput.Len() == 0 {
 			err = io.EOF
 		}
-		if e, ok := err.(net.Error); !ok || !e.Temporary() {
+		if e, ok := err.(net.Error); !ok || !e.Timeout() { // Change .Temporary() to .Timeout() per suggested
 			c.in.setErrorLocked(err)
 		}
 		return err
@@ -659,7 +659,7 @@ func (c *Conn) readRecordOrCCS(expectChangeCipherSpec bool) error {
 		return c.in.setErrorLocked(c.newRecordHeaderError(nil, msg))
 	}
 	if err := c.readFromUntil(c.conn, recordHeaderLen+n); err != nil {
-		if e, ok := err.(net.Error); !ok || !e.Temporary() {
+		if e, ok := err.(net.Error); !ok || !e.Timeout() { // Change .Temporary() to .Timeout() per suggested
 			c.in.setErrorLocked(err)
 		}
 		return err

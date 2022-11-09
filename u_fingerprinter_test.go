@@ -15,8 +15,8 @@ import (
 )
 
 func assertEquality(t *testing.T, fieldName string, expected, actual interface{}) {
-	if kActual, ok := actual.(KeyShare); ok {
-		kExpected := expected.(KeyShare)
+	if kActual, ok := actual.(UKeyShare); ok {
+		kExpected := expected.(UKeyShare)
 		assertEquality(t, fieldName, kExpected.Group, kActual.Group)
 		return
 	}
@@ -42,7 +42,7 @@ func assertEquality(t *testing.T, fieldName string, expected, actual interface{}
 	}
 }
 
-func compareClientHelloFields(t *testing.T, fieldName string, expected, actual *PubClientHelloMsg) {
+func compareClientHelloFields(t *testing.T, fieldName string, expected, actual *UClientHelloMsg) {
 	rExpected := reflect.ValueOf(expected)
 	if rExpected.Kind() != reflect.Ptr || rExpected.Elem().Kind() != reflect.Struct {
 		t.Errorf("Error using reflect to compare Hello fields")
@@ -225,7 +225,7 @@ func checkUTLSFingerPrintClientHello(t *testing.T, clientHelloID ClientHelloID, 
 	fieldsToTest := []string{
 		"Vers", "CipherSuites", "CompressionMethods", "NextProtoNeg", "ServerName", "OcspStapling", "Scts", "SupportedCurves",
 		"SupportedPoints", "TicketSupported", "SupportedSignatureAlgorithms", "SecureRenegotiation", "SecureRenegotiationSupported", "AlpnProtocols",
-		"SupportedSignatureAlgorithmsCert", "SupportedVersions", "KeyShares", "EarlyData", "PskModes", "PskIdentities", "PskBinders",
+		"SupportedSignatureAlgorithmsCert", "SupportedVersions", "KeyShares", "EarlyData", "PSKModes", "PSKIdentities", "PSKBinders",
 	}
 
 	for _, field := range fieldsToTest {

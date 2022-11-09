@@ -265,9 +265,9 @@ func (f *Fingerprinter) FingerprintClientHello(data []byte) (*ClientHelloSpec, e
 			if !extData.ReadUint16LengthPrefixed(&clientShares) {
 				return nil, errors.New("unable to read key share extension data")
 			}
-			keyShares := []KeyShare{}
+			keyShares := []UKeyShare{}
 			for !clientShares.Empty() {
-				var ks KeyShare
+				var ks UKeyShare
 				var group uint16
 				if !clientShares.ReadUint16(&group) ||
 					!readUint16LengthPrefixed(&clientShares, &ks.Data) ||

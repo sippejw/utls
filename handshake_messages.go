@@ -85,7 +85,6 @@ type clientHelloMsg struct {
 	secureRenegotiation              []byte
 	alpnProtocols                    []string
 	scts                             bool
-	ems                              bool // [uTLS] actually implemented due to its prevalence
 	supportedVersions                []uint16
 	cookie                           []byte
 	keyShares                        []keyShare
@@ -96,6 +95,7 @@ type clientHelloMsg struct {
 
 	// [uTLS]
 	nextProtoNeg bool
+	ems          bool //  actually implemented due to its prevalence
 }
 
 func (m *clientHelloMsg) marshal() []byte {

@@ -26,7 +26,7 @@ type UConn struct {
 	ClientHelloID ClientHelloID
 
 	ClientHelloBuilt bool
-	HandshakeState   PubClientHandshakeState
+	HandshakeState   UClientHandshakeState
 
 	// sessionID may or may not depend on ticket; nil => random
 	GetSessionID func(ticket []byte) [32]byte
@@ -48,7 +48,7 @@ func UClient(conn net.Conn, config *Config, clientHelloID ClientHelloID) *UConn 
 		config = &Config{}
 	}
 	tlsConn := Conn{conn: conn, config: config, isClient: true}
-	handshakeState := PubClientHandshakeState{C: &tlsConn, Hello: &PubClientHelloMsg{}}
+	handshakeState := UClientHandshakeState{C: &tlsConn, Hello: &UClientHelloMsg{}}
 	uconn := UConn{Conn: &tlsConn, ClientHelloID: clientHelloID, HandshakeState: handshakeState}
 	uconn.HandshakeState.uconn = &uconn
 	uconn.handshakeFn = uconn.clientHandshake
@@ -82,8 +82,8 @@ func (uconn *UConn) BuildHandshakeState() error {
 			return err
 		}
 
-		uconn.HandshakeState.Hello = hello.getPublicPtr()
-		uconn.HandshakeState.State13.EcdheParams = ecdheParams
+		uconn.HandshakeState.Hello = hello.toPublic()
+		uconn.HandshakeState.State13.ECDHEParams = ecdheParams
 		uconn.HandshakeState.C = uconn.Conn
 	} else {
 		if !uconn.ClientHelloBuilt {
@@ -357,8 +357,8 @@ func (c *UConn) Write(b []byte) (int, error) {
 // and performs client TLS handshake with that state
 func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 	// [uTLS section begins]
-	hello := c.HandshakeState.Hello.getPrivatePtr()
-	defer func() { c.HandshakeState.Hello = hello.getPublicPtr() }()
+	hello := c.HandshakeState.Hello.toPrivate()
+	defer func() { c.HandshakeState.Hello = hello.toPublic() }()
 
 	sessionIsAlreadySet := c.HandshakeState.Session != nil
 
@@ -452,7 +452,7 @@ func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 		hs13.ctx = ctx
 		// In TLS 1.3, session tickets are delivered after the handshake.
 		err = hs13.handshake()
-		if handshakeState := hs13.toPublic13(); handshakeState != nil {
+		if handshakeState := hs13.toPublic(); handshakeState != nil {
 			c.HandshakeState = *handshakeState
 		}
 		return err
@@ -463,7 +463,7 @@ func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 	hs12.hello = hello
 	hs12.ctx = ctx
 	err = hs12.handshake()
-	if handshakeState := hs12.toPublic12(); handshakeState != nil {
+	if handshakeState := hs12.toPublic(); handshakeState != nil {
 		c.HandshakeState = *handshakeState
 	}
 	if err != nil {
